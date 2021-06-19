@@ -48,6 +48,19 @@ numPad.forEach(num => {
 function operate(a, sign, b){
     switch (sign) {
         case "+":
-            return
-    }
-}
+            add(a, b);
+            break;
+        case "-":
+             subtract(a, b);
+            break;
+        case "/":
+             divide(a, b);
+            break;
+        case "X":
+            multiply(a, b);
+            break;
+        default:
+            alert("Wrong input");
+            break;
+    };
+};
