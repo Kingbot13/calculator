@@ -1,5 +1,8 @@
 :root{
-
+    --primary: #B6B6B6;
+    --secondary: #5A646E;
+    --dark: #3F454D;
+    --accent: #FFA500;
 }
 
 * {
@@ -9,6 +12,9 @@
 
 body{
     text-align: center;
+    background-color: black;
+    color: var(--primary);
+    font-size: 40px;
 }
 
 .main-container{
@@ -25,13 +31,15 @@ main{
 }
 
 div{
-    height: 100%;
+    height: 80%;
 }
 
 .screen{
     display: flex;
-    height: 25px;
+    height: 20%;
     justify-content: flex-end;
+    width: 90%;
+    font-size: 80px;
     
 }
 
@@ -41,49 +49,60 @@ div{
    grid-template-columns: repeat(4, 1fr);
    grid-template-rows: repeat(5, 1fr);
    align-content: center;
-   justify-content: center;
+   justify-content: space-between;
    
 }
 
-.top-container{
+.key-container div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 80%;
+}
+
+/* .top-container{
     grid-column: 1/4;
     grid-row: 1;
     display: grid;
     grid-template-columns: auto auto auto;
     align-items: center;
-}
+} */
 
-.num-container{
+/* .num-container{
     grid-column: 1/4;
     grid-row: 2/6;
     display: grid;
     grid-template-columns: repeat(3, auto);
     grid-template-rows: repeat(3, auto);
 
-}
+} */
 
-.operator-container{
+/* .operator-container{
     grid-column: 4;
     grid-row: 1/6;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: repeat(6, auto);
-}
+} */
 
 .top-row{
-    background-color: yellow;
+    background-color: var(--primary);
+    color: black;
 }
 
 .num{
-   background-color: gray;
+   background-color: var(--dark);
 }
 
 .operator{
-  background-color: orange;
+  background-color: var(--accent);
 }
 
 #zero{
     grid-column: 1/3;
+    border-radius: 50px;
+    padding-right: 50px;
 }
 
 #decimal{
