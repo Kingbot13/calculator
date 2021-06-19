@@ -1,8 +1,11 @@
 :root{
     --primary: #d8d8d8;
+    --pri-hover: #e9e9e9;
     --secondary: #5A646E;
     --dark: #3F454D;
+    --dark-hover: #4e5660;
     --accent: #dd8f00;
+    --acc-hover: #ffa500;
 }
 
 * {
@@ -62,42 +65,29 @@ div{
     width: 80%;
 }
 
-/* .top-container{
-    grid-column: 1/4;
-    grid-row: 1;
-    display: grid;
-    grid-template-columns: auto auto auto;
-    align-items: center;
-} */
-
-/* .num-container{
-    grid-column: 1/4;
-    grid-row: 2/6;
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    grid-template-rows: repeat(3, auto);
-
-} */
-
-/* .operator-container{
-    grid-column: 4;
-    grid-row: 1/6;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: repeat(6, auto);
-} */
-
 .top-row{
     background-color: var(--primary);
     color: black;
+}
+
+.top-row:hover{
+    background-color: var(--pri-hover);
 }
 
 .num{
    background-color: var(--dark);
 }
 
+.num:hover{
+    background-color: var(--dark-hover);
+}
+
 .operator{
   background-color: var(--accent);
+}
+
+.operator:hover{
+    background-color: var(--acc-hover);
 }
 
 #zero{
