@@ -1,3 +1,8 @@
+const numPad = document.querySelectorAll(".num");
+const display = document.querySelector(".display");
+const operators = document.querySelectorAll(".operator");
+const clearAll = document.querySelector(".ac");
+
 function add(a, b){
     return a + b;
 };
@@ -25,22 +30,26 @@ function divide(a, b){
     store next number as variable
         b = display.innerHTML;
     equal sign finishes calculations and shows final number
+
+    push numbers to array for later calculations
     
  
 */
 
-const numPad = document.querySelectorAll(".num");
-const display = document.querySelector(".display");
-const operators = document.querySelectorAll(".operator");
-const clearAll = document.querySelector(".ac");
-
-clearAll.addEventListener("click", () => {
+function clear(){
     display.innerHTML = "0";
-});
+}
+
+
+clearAll.addEventListener("click", clear);
 
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
-
+        let numArray = []
+        let a = numArray.push(parseFloat(display.innerHTML));
+        clear();
+        let b = numArray.push(parseFloat(display.innerHTML));
+        operate([a, b], sign);
     });
 });
 
