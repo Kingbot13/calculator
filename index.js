@@ -4,7 +4,7 @@ const operators = document.querySelectorAll(".operator");
 const clearAll = document.querySelector(".ac");
 
 function add(array){
-    display.innerHTML = array.reduce((a, b), () => a + b);
+    return display.innerHTML = array.reduce((a, b), () => a + b);
 };
 
 function subtract(a, b){
@@ -32,8 +32,10 @@ function divide(a, b){
 */
 let numArray = []
 
+
 function clear(){
     display.innerHTML = "0";
+    numArray = [];
 }
 
 
@@ -41,13 +43,15 @@ clearAll.addEventListener("click", clear);
 
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
-        if (numArray.length === 2){
-            operate(numArray, sign);
-        } else if (sign === "=" && numArray.length ===2) {
-            operate([numArray], sign);
+        if (numArray.length === 3){
+            operate(numArray);
+        } else if (sign === "=" && numArray.length === 3) {
+            operate(numArray);
         }else{
             numArray.push(parseFloat(display.innerHTML));
-            clear();
+            numArray.push(sign.innerHTML);
+            display.innerHTML = "0";
+            console.log(numArray);
         };
     });
 });
@@ -56,17 +60,19 @@ numPad.forEach(num => {
     num.addEventListener("click", () => {
         if (display.innerHTML === "0"){
             display.innerHTML = num.innerHTML; 
-
         } else {
             display.innerHTML = display.innerHTML + num.innerHTML;
         };
     });
 });
 
-function operate([...args], sign){
-    switch (sign) {
+function operate([...args], calculate){
+    // display.innerHTML = calculate(args);
+    
+    switch (args[1]) {
         case "+":
-            add(args);
+            args.splice(1, 1);
+           operate(args, add);
             break;
         case "-":
              subtract(args);
