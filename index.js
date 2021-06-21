@@ -21,8 +21,6 @@ function divide(a, b){
 
 /* 
 
-    grab nodes for operators
-    add event listeners
     store number as variable to be used in operate()  
         a = display.innerHTML;
     store sign as variable
@@ -30,10 +28,7 @@ function divide(a, b){
     store next number as variable
         b = display.innerHTML;
     equal sign finishes calculations and shows final number
-
-    push numbers to array for later calculations
     
- 
 */
 let numArray = []
 
@@ -46,11 +41,14 @@ clearAll.addEventListener("click", clear);
 
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
-        let a = numArray.push(parseFloat(display.innerHTML));
-        display.innerHTML = "0";
-        if (numArray.length === )
-        let b = numArray.push(parseFloat(display.innerHTML));
-        operate([a, b], sign);
+        if (numArray.length === 2){
+            operate(numArray, sign);
+        } else if (sign === "=" && numArray.length ===2) {
+            operate([numArray], sign);
+        }else{
+            numArray.push(parseFloat(display.innerHTML));
+            clear();
+        };
     });
 });
 
@@ -65,19 +63,19 @@ numPad.forEach(num => {
     });
 });
 
-function operate(a, sign, b){
+function operate([...args], sign){
     switch (sign) {
         case "+":
-            add(a, b);
+            add(args);
             break;
         case "-":
-             subtract(a, b);
+             subtract(args);
             break;
         case "/":
-             divide(a, b);
+             divide(args);
             break;
         case "X":
-            multiply(a, b);
+            multiply(args);
             break;
         default:
             alert("Wrong input");
