@@ -3,8 +3,8 @@ const display = document.querySelector(".display");
 const operators = document.querySelectorAll(".operator");
 const clearAll = document.querySelector(".ac");
 
-function add(a, b){
-    return a + b;
+function add(array){
+    display.innerHTML = array.reduce((a, b), () => a + b);
 };
 
 function subtract(a, b){
@@ -35,6 +35,7 @@ function divide(a, b){
     
  
 */
+let numArray = []
 
 function clear(){
     display.innerHTML = "0";
@@ -45,9 +46,9 @@ clearAll.addEventListener("click", clear);
 
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
-        let numArray = []
         let a = numArray.push(parseFloat(display.innerHTML));
-        clear();
+        display.innerHTML = "0";
+        if (numArray.length === )
         let b = numArray.push(parseFloat(display.innerHTML));
         operate([a, b], sign);
     });
