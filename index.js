@@ -32,6 +32,11 @@ function divide(a, b){
 const numPad = document.querySelectorAll(".num");
 const display = document.querySelector(".display");
 const operators = document.querySelectorAll(".operator");
+const clearAll = document.querySelector(".ac");
+
+clearAll.addEventListener("click", () => {
+    display.innerHTML = "0";
+});
 
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
@@ -41,7 +46,12 @@ operators.forEach(sign => {
 
 numPad.forEach(num => {
     num.addEventListener("click", () => {
-        display.innerHTML = num.innerHTML; 
+        if (display.innerHTML === "0"){
+            display.innerHTML = num.innerHTML; 
+
+        } else {
+            display.innerHTML = display.innerHTML + num.innerHTML;
+        };
     });
 });
 
