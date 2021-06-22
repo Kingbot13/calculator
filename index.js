@@ -78,15 +78,18 @@ function operate([...args]){
     switch (args[1]) {
         case "+":
             args.splice(1, 1);
-           add(args);
+            add(args);
             break;
         case "-":
-             subtract(args);
+            args.splice(1, 1);
+            subtract(args);
             break;
         case "/":
-             divide(args);
+            args.splice(1, 1);
+            divide(args);
             break;
         case "X":
+            args.splice(1, 1);
             multiply(args);
             break;
         default:
