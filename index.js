@@ -5,6 +5,7 @@ const clearAll = document.querySelector(".ac");
 const decimal = document.querySelector("#decimal");
 const percent = document.querySelector(".percent");
 const signChange = document.querySelector(".change-sign")
+const equalSign = document.querySelector("#equal-sign");
 let numArray = [];
 
 percent.addEventListener("click", () => {
@@ -20,6 +21,14 @@ function hasDecimal(){
         decimal.disabled = true;
     } else {
         decimal.disabled = false;
+    };
+};
+
+function hasEqualSign(){
+    if (numArray[2] === "="){
+        equalSign.disabled = true;
+    } else {
+        equalSign.disabled = false;
     };
 };
 
@@ -63,6 +72,9 @@ clearAll.addEventListener("click", clear); // set display to zero and reset numA
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
         let numSlice;
+
+        hasEqualSign() ? numArray.splice(1, 1, sign)
+        :
         numArray.push(parseFloat(display.innerHTML));
         numArray.push(sign.innerHTML);
         display.innerHTML = "0";
@@ -70,11 +82,10 @@ operators.forEach(sign => {
             numSlice = numArray.slice(0, 3);
             console.log("slice:",numSlice);
             operate(numSlice);
-        } else if (sign === "=" && numArray.length >= 3) {
-            numSlice = numArray.slice(0, 3);
-
-            operate(numSlice);
         };
+        
+
+        
             console.log(numArray);  
     });
 });
@@ -94,7 +105,7 @@ numPad.forEach(num => {
 });
 
 /* 
-    
+    pressing "=" before numbers and operators causes problems
 */
 
 function operate([...args]){
@@ -114,6 +125,9 @@ function operate([...args]){
         case "x":
             args.splice(1, 1);
             multiply(args);
+            break;
+        case "=":
+            args.splice(1, 1);
             break;
         default:
             alert("Wrong input");
