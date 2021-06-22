@@ -3,8 +3,11 @@ const display = document.querySelector(".display");
 const operators = document.querySelectorAll(".operator");
 const clearAll = document.querySelector(".ac");
 
-function add(array){
-    return display.innerHTML = array.reduce((a, b), () => a + b);
+function add([...args]){
+    let results;
+    results = args.reduce((a, b), () => a + b);
+    display.innerHTML = results;
+    return results;
 };
 
 function subtract(a, b){
@@ -20,39 +23,32 @@ function divide(a, b){
 };
 
 /* 
-
-    store number as variable to be used in operate()  
-        a = display.innerHTML;
-    store sign as variable
-        sign = sign.innerHTML;
-    store next number as variable
-        b = display.innerHTML;
-    equal sign finishes calculations and shows final number
     
 */
-let numArray = []
+let numArray = [];
 
 
 function clear(){
     display.innerHTML = "0";
     numArray = [];
-}
+};
 
-
-clearAll.addEventListener("click", clear);
+clearAll.addEventListener("click", clear); // set display to zero and reset numArray
 
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
-        if (numArray.length === 3){
-            operate(numArray);
-        } else if (sign === "=" && numArray.length === 3) {
-            operate(numArray);
+        if (numArray.length >= 3){
+            let numSlice = numArray.slice(0, 3);
+            console.log(numSlice);
+            return operate(numSlice);
+        } else if (sign === "=" && numArray.length >= 3) {
+           return operate(numSlice);
         }else{
             numArray.push(parseFloat(display.innerHTML));
             numArray.push(sign.innerHTML);
             display.innerHTML = "0";
             console.log(numArray);
-        };
+        };  
     });
 });
 
@@ -66,13 +62,18 @@ numPad.forEach(num => {
     });
 });
 
-function operate([...args], calculate){
-    // display.innerHTML = calculate(args);
+function operate([...args]){
+
+    if (args[1] === "+"){
+        args.splice(1,1);
+        console.log(args);
+        return add(args);
+    };
     
-    switch (args[1]) {
+/*     switch (args[1]) {
         case "+":
             args.splice(1, 1);
-           operate(args, add);
+           add(args);
             break;
         case "-":
              subtract(args);
@@ -87,4 +88,6 @@ function operate([...args], calculate){
             alert("Wrong input");
             break;
     };
+ */
+    // return args;
 };
