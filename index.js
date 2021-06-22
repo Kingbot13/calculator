@@ -2,7 +2,16 @@ const numPad = document.querySelectorAll(".num-btn");
 const display = document.querySelector(".display");
 const operators = document.querySelectorAll(".oper-btn");
 const clearAll = document.querySelector(".ac");
+const decimal = document.querySelector("#decimal");
 let numArray = [];
+
+function hasDecimal(){
+    if (display.innerHTML - Math.floor(display.innerHTML) !== 0 || display.innerHTML - Math.floor(display.innerHTML) !== "0"){
+        decimal.disabled = true;
+    } else {
+        decimal.disabled = false;
+    };
+};
 
 function clear(){
     display.innerHTML = "0";
@@ -62,6 +71,7 @@ operators.forEach(sign => {
 
 numPad.forEach(num => {
     num.addEventListener("click", () => {
+        hasDecimal();
         if (display.innerHTML === "0"){
             display.innerHTML = num.innerHTML; 
         }else if(numArray.length === 2){
