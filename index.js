@@ -3,7 +3,17 @@ const display = document.querySelector(".display");
 const operators = document.querySelectorAll(".oper-btn");
 const clearAll = document.querySelector(".ac");
 const decimal = document.querySelector("#decimal");
+const percent = document.querySelector(".percent");
+const signChange = document.querySelector(".change-sign")
 let numArray = [];
+
+percent.addEventListener("click", () => {
+    display.innerHTML /= 100; 
+});
+
+signChange.addEventListener("click", () => {
+    display.innerHTML *= -1;
+})
 
 function hasDecimal(){
     if (display.innerHTML - Math.floor(display.innerHTML) !== 0 || display.innerHTML - Math.floor(display.innerHTML) !== "0"){
