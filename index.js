@@ -4,8 +4,9 @@ const operators = document.querySelectorAll(".operator");
 const clearAll = document.querySelector(".ac");
 
 function add([...args]){
-    let results;
-    results = args.reduce((a, b), () => a + b);
+    console.log(args);
+    let results = args[0] + args[1];
+    // results = args.reduce((a, b), () => a += b);
     display.innerHTML = results;
     return results;
 };
@@ -22,9 +23,7 @@ function divide(a, b){
     return a / b;
 };
 
-/* 
-    
-*/
+
 let numArray = [];
 
 
@@ -37,12 +36,15 @@ clearAll.addEventListener("click", clear); // set display to zero and reset numA
 
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
+        let numSlice;
         if (numArray.length >= 3){
-            let numSlice = numArray.slice(0, 3);
+            numSlice = numArray.slice(0, 3);
             console.log(numSlice);
-            return operate(numSlice);
+            operate(numSlice);
         } else if (sign === "=" && numArray.length >= 3) {
-           return operate(numSlice);
+            numSlice = numArray.slice(0, 3);
+
+           operate(numSlice);
         }else{
             numArray.push(parseFloat(display.innerHTML));
             numArray.push(sign.innerHTML);
@@ -63,14 +65,8 @@ numPad.forEach(num => {
 });
 
 function operate([...args]){
-
-    if (args[1] === "+"){
-        args.splice(1,1);
-        console.log(args);
-        return add(args);
-    };
     
-/*     switch (args[1]) {
+    switch (args[1]) {
         case "+":
             args.splice(1, 1);
            add(args);
@@ -88,6 +84,6 @@ function operate([...args]){
             alert("Wrong input");
             break;
     };
- */
+
     // return args;
 };
