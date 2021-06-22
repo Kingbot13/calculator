@@ -6,21 +6,26 @@ const clearAll = document.querySelector(".ac");
 function add([...args]){
     console.log(args);
     let results = args[0] + args[1];
-    // results = args.reduce((a, b), () => a += b);
     display.innerHTML = results;
     return results;
 };
 
-function subtract(a, b){
-    return a - b;
+function subtract([...args]){
+    let results = args[0] - args[1];
+    display.innerHTML = results;
+    return results;
 };
 
-function multiply(a, b){
-    return a * b;
+function multiply([...args]){
+    let results = args[0] * args[1];
+    display.innerHTML = results;
+    return results;
 };
 
-function divide(a, b){
-    return a / b;
+function divide([...args]){
+    let results = args[0] / args[1];
+    display.innerHTML = results;
+    return results;
 };
 
 
@@ -44,7 +49,7 @@ operators.forEach(sign => {
         } else if (sign === "=" && numArray.length >= 3) {
             numSlice = numArray.slice(0, 3);
 
-           operate(numSlice);
+            operate(numSlice);
         }else{
             numArray.push(parseFloat(display.innerHTML));
             numArray.push(sign.innerHTML);
@@ -63,6 +68,10 @@ numPad.forEach(num => {
         };
     });
 });
+
+/* 
+    after calculation, remove first three indexes in numArray and replace with result from calculation 
+*/
 
 function operate([...args]){
     
@@ -85,5 +94,4 @@ function operate([...args]){
             break;
     };
 
-    // return args;
 };
