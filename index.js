@@ -104,7 +104,9 @@ numPad.forEach(num => {
         }else if(numArray.length === 2){
             display.innerHTML = num.innerHTML;
 
-        } else {
+        } else if(hasEqualSign()){
+            display.innerHTML = num.innerHTML;
+        }else {
             display.innerHTML = display.innerHTML + num.innerHTML;
         };
     });
@@ -112,6 +114,7 @@ numPad.forEach(num => {
 
 /* 
     pressing "=" before numbers and operators causes problems
+    pressing "." while display = 0 replaces 0 with "."
 */
 
 function operate([...args]){
