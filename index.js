@@ -14,7 +14,7 @@ percent.addEventListener("click", () => {
 
 signChange.addEventListener("click", () => {
     display.innerHTML *= -1;
-})
+});
 
 function hasDecimal(){
     if (display.innerHTML - Math.floor(display.innerHTML) !== 0 || display.innerHTML - Math.floor(display.innerHTML) !== "0"){
@@ -25,11 +25,12 @@ function hasDecimal(){
 };
 
 function hasEqualSign(){
-    if (numArray[2] === "="){
+    if (numArray[1] === "="){
         equalSign.disabled = true;
     } else {
         equalSign.disabled = false;
     };
+    return equalSign.disabled;
 };
 
 function clear(){
@@ -72,19 +73,24 @@ clearAll.addEventListener("click", clear); // set display to zero and reset numA
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
         let numSlice;
-
-        hasEqualSign() ? numArray.splice(1, 1, sign)
-        :
         numArray.push(parseFloat(display.innerHTML));
         numArray.push(sign.innerHTML);
-        display.innerHTML = "0";
-        if (numArray.length >= 3){
-            numSlice = numArray.slice(0, 3);
-            console.log("slice:",numSlice);
-            operate(numSlice);
-        };
-        
 
+        if (hasEqualSign()) {
+            console.log("equals", numArray);
+            numArray.splice(0);
+        } else {
+            display.innerHTML = "0";
+            if (numArray.length >= 3){
+                numSlice = numArray.slice(0, 3);
+                console.log("slice:",numSlice);
+                operate(numSlice);
+            };
+
+        };
+
+    
+    
         
             console.log(numArray);  
     });
