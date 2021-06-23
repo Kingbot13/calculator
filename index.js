@@ -73,22 +73,28 @@ clearAll.addEventListener("click", clear); // set display to zero and reset numA
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
         let numSlice;
+
+        if (hasEqualSign() && sign.innerHTML != "="){ // if true, allow next calculation by cutting before pushing
+            numArray.splice(0, 2);
+        };
+        
         numArray.push(parseFloat(display.innerHTML));
         numArray.push(sign.innerHTML);
-
+        
         if (hasEqualSign()) {
             console.log("equals", numArray);
-            numArray.splice(0);
+            numArray.splice(0, 2);
+            display.innerHTML = 0;
         } else {
-            display.innerHTML = "0";
+            display.innerHTML = 0; // resets display after operator button pressed
             if (numArray.length >= 3){
                 numSlice = numArray.slice(0, 3);
                 console.log("slice:",numSlice);
                 operate(numSlice);
             };
-
+            
         };
-
+        
     
     
         
@@ -99,9 +105,11 @@ operators.forEach(sign => {
 numPad.forEach(num => {
     num.addEventListener("click", () => {
         hasDecimal();
-        if (display.innerHTML === "0"){
-            display.innerHTML = num.innerHTML; 
-        }else if(numArray.length === 2){
+        if (display.innerHTML === "0" || display.innerHTML === 0){
+            if (num !== "."){
+                display.innerHTML = num.innerHTML; 
+            };
+        }else if(numArray.length <= 1){
             display.innerHTML = num.innerHTML;
 
         } else if(hasEqualSign()){
