@@ -106,7 +106,10 @@ numPad.forEach(num => {
     num.addEventListener("click", () => {
         hasDecimal();
         if (display.innerHTML === "0" || display.innerHTML === 0){
-            if (num !== "."){
+            if (num.innerHTML === "."){
+                display.innerHTML = display.innerHTML + num.innerHTML;
+
+            } else {
                 display.innerHTML = num.innerHTML; 
             };
         }else if(numArray.length <= 1){
@@ -121,8 +124,9 @@ numPad.forEach(num => {
 });
 
 /* 
-    pressing "=" before numbers and operators causes problems
+    
     pressing "." while display = 0 replaces 0 with "."
+    if starting number = 0, diplay + num
 */
 
 function operate([...args]){
