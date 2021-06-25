@@ -6,7 +6,7 @@ const decimal = document.querySelector("#decimal");
 const percent = document.querySelector(".percent");
 const signChange = document.querySelector(".change-sign")
 const equalSign = document.querySelector("#equal-sign");
-let numArray = [];
+let numArray = []; // store numbers and operators
 
 percent.addEventListener("click", () => {
     display.innerHTML /= 100; 
@@ -17,7 +17,7 @@ signChange.addEventListener("click", () => {
 });
 
 function hasDecimal(){
-    if (display.innerHTML - Math.floor(display.innerHTML) !== 0 || display.innerHTML - Math.floor(display.innerHTML) !== "0"){
+    if (display.innerHTML - Math.floor(display.innerHTML) !== 0){
         decimal.disabled = true;
     } else {
         decimal.disabled = false;
@@ -39,7 +39,7 @@ function clear(){
 };
 
 function add([...args]){
-    console.log(args);
+    // console.log(args);
     let results = args[0] + args[1];
     display.innerHTML = results;
     return results;
@@ -95,16 +95,20 @@ operators.forEach(sign => {
             
         };
         
-    
-    
-        
             console.log(numArray);  
     });
-});
+}); 
+
+/* 
+    counter variable to count times number pressed
+    if counter > 1
+        display + num
+*/
 
 numPad.forEach(num => {
     num.addEventListener("click", () => {
         hasDecimal();
+        let counter = 0;
         if (display.innerHTML === "0" || display.innerHTML === 0){
             if (num.innerHTML === "."){
                 display.innerHTML = display.innerHTML + num.innerHTML;
@@ -112,22 +116,27 @@ numPad.forEach(num => {
             } else {
                 display.innerHTML = num.innerHTML; 
             };
-        }else if(numArray.length <= 1){
+        }else if(hasEqualSign()){
             display.innerHTML = num.innerHTML;
+            numArray.splice(0,2);
+            
+        // }else if(counter === 0){
 
-        } else if(hasEqualSign()){
-            display.innerHTML = num.innerHTML;
+        //     counter++;
+        //     display.innerHTML = num.innerHTML;
+        //     console.log("counter", counter);
+
+            
         }else {
             display.innerHTML = display.innerHTML + num.innerHTML;
         };
+
+        if (numArray.length !== 2){
+            counter = 0;
+        };
+        console.log("current counter:", counter);
     });
 });
-
-/* 
-    
-    pressing "." while display = 0 replaces 0 with "."
-    if starting number = 0, diplay + num
-*/
 
 function operate([...args]){
     switch (args[1]) {
@@ -147,9 +156,9 @@ function operate([...args]){
             args.splice(1, 1);
             multiply(args);
             break;
-        case "=":
-            args.splice(1, 1);
-            break;
+        // case "=":
+        //     args.splice(1, 1);
+        //     break;
         default:
             alert("Wrong input");
             break;
