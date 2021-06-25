@@ -38,33 +38,6 @@ function clear(){
     numArray = [];
 };
 
-function add([...args]){
-    // console.log(args);
-    let results = args[0] + args[1];
-    display.innerHTML = results;
-    return results;
-};
-
-function subtract([...args]){
-    let results = args[0] - args[1];
-    display.innerHTML = results;
-    return results;
-};
-
-function multiply([...args]){
-    let results = args[0] * args[1];
-    display.innerHTML = results;
-    return results;
-};
-
-function divide([...args]){
-    let results;
-    args[1] === 0 ? alert("Tsk tsk tsk. You thought you were clever trying to divide by zero!")
-    :
-    results = args[0] / args[1];
-    display.innerHTML = results;
-    return results;
-};
 
 
 clearAll.addEventListener("click", clear); // set display to zero and reset numArray
@@ -73,12 +46,13 @@ clearAll.addEventListener("click", clear); // set display to zero and reset numA
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
         let numSlice;
-
+        
         if (hasEqualSign() && sign.innerHTML != "="){ // if true, allow next calculation by cutting before pushing
             numArray.splice(0, 2);
         };
         
         numArray.push(parseFloat(display.innerHTML));
+        display.innerHTML = 0; // resets display after operator button pressed
         numArray.push(sign.innerHTML);
         
         if (hasEqualSign()) {
@@ -86,7 +60,6 @@ operators.forEach(sign => {
             numArray.splice(0, 2);
             display.innerHTML = 0;
         } else {
-            display.innerHTML = 0; // resets display after operator button pressed
             if (numArray.length >= 3){
                 numSlice = numArray.slice(0, 3);
                 console.log("slice:",numSlice);
@@ -95,14 +68,14 @@ operators.forEach(sign => {
             
         };
         
-            console.log(numArray);  
+        console.log(numArray);  
     });
 }); 
 
 /* 
-    counter variable to count times number pressed
-    if counter > 1
-        display + num
+counter variable to count times number pressed
+if counter > 1
+display + num
 */
 
 numPad.forEach(num => {
@@ -112,7 +85,7 @@ numPad.forEach(num => {
         if (display.innerHTML === "0" || display.innerHTML === 0){
             if (num.innerHTML === "."){
                 display.innerHTML = display.innerHTML + num.innerHTML;
-
+                
             } else {
                 display.innerHTML = num.innerHTML; 
             };
@@ -120,49 +93,77 @@ numPad.forEach(num => {
             display.innerHTML = num.innerHTML;
             numArray.splice(0,2);
             
-        // }else if(counter === 0){
-
-        //     counter++;
-        //     display.innerHTML = num.innerHTML;
-        //     console.log("counter", counter);
-
+            // }else if(counter === 0){
+                
+                //     counter++;
+                //     display.innerHTML = num.innerHTML;
+                //     console.log("counter", counter);
+                
+                
+            }else {
+                display.innerHTML = display.innerHTML + num.innerHTML;
+            };
             
-        }else {
-            display.innerHTML = display.innerHTML + num.innerHTML;
-        };
-
-        if (numArray.length !== 2){
-            counter = 0;
-        };
-        console.log("current counter:", counter);
+            if (numArray.length !== 2){
+                counter = 0;
+            };
+            console.log("current counter:", counter);
+        });
     });
-});
-
+    
 function operate([...args]){
+    function add([...args]){
+        // console.log(args);
+        let results = args[0] + args[1];
+        display.innerHTML = results;
+        return results;
+    };
+    
+    function subtract([...args]){
+        let results = args[0] - args[1];
+        display.innerHTML = results;
+        return results;
+    };
+    
+    function multiply([...args]){
+        let results = args[0] * args[1];
+        display.innerHTML = results;
+        return results;
+    };
+    
+    function divide([...args]){
+        let results;
+        args[1] === 0 ? alert("Tsk tsk tsk. You thought you were clever trying to divide by zero!")
+        :
+        results = args[0] / args[1];
+        display.innerHTML = results;
+        return results;
+    };
+
     switch (args[1]) {
         case "+":
-            args.splice(1, 1);
-            add(args);
-            break;
+        args.splice(1, 1);
+        add(args);
+        break;
         case "-":
-            args.splice(1, 1);
-            subtract(args);
-            break;
+        args.splice(1, 1);
+        subtract(args);
+        break;
         case "/":
-            args.splice(1, 1);
-            divide(args);
-            break;
+        args.splice(1, 1);
+        divide(args);
+        break;
         case "x":
-            args.splice(1, 1);
-            multiply(args);
-            break;
+        args.splice(1, 1);
+        multiply(args);
+        break;
         // case "=":
         //     args.splice(1, 1);
         //     break;
         default:
             alert("Wrong input");
             break;
-    };
+        };
     numArray.splice(0, 3);
     numArray.unshift(parseFloat(display.innerHTML));
 };
