@@ -89,18 +89,18 @@ operators.forEach(sign => {
 }); 
 
 /* 
-counter variable to count times number pressed
+counter variable to count times operation function has been pressed
 if counter > 1
 display + num
 */
 
 numPad.forEach(num => {
     let counter = 0;
-    if (numArray === 2){
-        counter++;
-    };
+    // if (numArray === 2){
+    //     counter++;
+    // };
     num.addEventListener("click", () => {
-        hasDecimal();
+        // hasDecimal();
         let number = parseFloat(num.innerHTML);
     
 
@@ -115,9 +115,16 @@ numPad.forEach(num => {
             console.log("condition 2");
             
         }else if(counter === 0 && numArray.length === 2){ // counter counts # of times num clicked
-            
+            let a = 0;
+
+            // if (Math.abs(a) < 10){
+                a = a * 10 + number;
+                displayNum = a;
+
+            // };
+            console.log("a:", a);
             counter++;
-            displayNum = number;
+            // displayNum = number;
             console.log("counter", counter);
             console.log("condition 3");
             
