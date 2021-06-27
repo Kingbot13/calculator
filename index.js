@@ -11,7 +11,7 @@ let numArray = []; // store numbers and operators
 let displayNum;
 
 function updateDisplay(){
-    display.innerHTML = displayNum;
+    display.innerHTML = parseFloat(displayNum);
 }
 
 percent.addEventListener("click", () => {
@@ -34,8 +34,11 @@ function hasDecimal(){ // disables decimal if already exists in the display
 
 decimal.addEventListener("click", () => { // decimal control... needs work
     hasDecimal();
-    displayNum += decimal.innerHTML;
-    updateDisplay();
+    if (!hasDecimal()){
+        displayNum = displayNum + parseFloat(decimal.innerHTML);
+        updateDisplay();
+
+    };
 
 });
 
@@ -58,10 +61,12 @@ function clear(){
 
 clearAll.addEventListener("click", clear); // set display to zero and reset numArray
 
+let counter = 0;
 
 operators.forEach(sign => {
     sign.addEventListener("click", () => {
         let numSlice;
+        counter = 0; // reset counter after clicking operation
         
         if (hasEqualSign() && sign.innerHTML != "="){ // if true, allow next calculation by cutting before pushing
             numArray.splice(0, 2);
@@ -94,44 +99,60 @@ if counter > 1
 display + num
 */
 
-numPad.forEach(num => {
-    let counter = 0;
+function checkCounters(){
     // if (numArray === 2){
     //     counter++;
     // };
+    if (counter === 0){
+        return true;
+    } else {
+        return false;
+    };
+};
+let operationCounter = 0;
+
+
+numPad.forEach(num => {
     num.addEventListener("click", () => {
-        // hasDecimal();
+        hasDecimal();
+        checkCounters();
+
         let number = parseFloat(num.innerHTML);
-    
 
-        if (display.innerHTML === "0" || display.innerHTML === 0){
-         
-            displayNum = number; 
-            console.log("condition 1");
-            
-        }else if(hasEqualSign()){
-            displayNum = number;
-            numArray.splice(0,2);
-            console.log("condition 2");
-            
-        }else if(counter === 0 && numArray.length === 2){ // counter counts # of times num clicked
-            let a = 0;
+        if (hasDecimal()){
+            displayNum += num;
+        } else {
 
-            // if (Math.abs(a) < 10){
-                a = a * 10 + number;
-                displayNum = a;
-
-            // };
-            console.log("a:", a);
-            counter++;
-            // displayNum = number;
-            console.log("counter", counter);
-            console.log("condition 3");
-            
-        }else {
-            displayNum = displayNum * 10 + number;
-            console.log("condition 4");
-        };
+            if (display.innerHTML === "0" || display.innerHTML === 0){
+                
+                displayNum = number; 
+                console.log("condition 1");
+                
+            }else if(hasEqualSign()){
+                displayNum = number;
+                numArray.splice(0,2);
+                console.log("condition 2");
+                
+            }else if(operationCounter === 1 && numArray.length === 2 && checkCounters()){ 
+                let a = 0;
+                
+                // if (Math.abs(a) < 10){
+                    a = a * 10 + number;
+                    displayNum = a;
+                    
+                    // };
+                    console.log("a:", a);
+                    counter++;
+                    // displayNum = number;
+                    console.log("counter", counter);
+                    console.log("condition 3");
+                    
+                }else {
+                    displayNum = displayNum * 10 + number;
+                    console.log("condition 4");
+                    operationCounter = 0; // reset counter after condition 3 is false
+                };
+            };
         
         if (numArray.length !== 2){
             counter = 0;
@@ -198,6 +219,7 @@ function operate([...args]){
             alert("Wrong input");
             break;
         };
+    operationCounter++
     updateDisplay();
     numArray.splice(0, 3);
     numArray.unshift(parseFloat(displayNum));
