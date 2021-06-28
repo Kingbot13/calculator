@@ -8,10 +8,10 @@ const signChange = document.querySelector(".change-sign")
 const equalSign = document.querySelector("#equal-sign");
 
 let numArray = []; // store numbers and operators
-let displayNum;
+let displayNum = parseFloat(display.innerHTML);
 
 function updateDisplay(){
-    display.innerHTML = parseFloat(displayNum);
+    display.innerHTML = displayNum.toString();
 }
 
 percent.addEventListener("click", () => {
@@ -25,7 +25,8 @@ signChange.addEventListener("click", () => {
 });
 
 function hasDecimal(){ // disables decimal if already exists in the display
-    if (parseFloat(display.innerHTML) - Math.floor(parseFloat(display.innerHTML)) !== 0){
+    // if (parseFloat(display.innerHTML) - Math.floor(parseFloat(display.innerHTML)) !== 0){
+    if (display.innerHTML.indexOf(".") != -1){
         decimal.disabled = true;
     } else {
         decimal.disabled = false;
@@ -36,7 +37,7 @@ function hasDecimal(){ // disables decimal if already exists in the display
 decimal.addEventListener("click", () => { // decimal control... needs work
     hasDecimal();
     if (!hasDecimal()){
-        displayNum = displayNum.toString() + decimal.innerHTML;
+        displayNum = display.innerHTML + decimal.innerHTML;
         updateDisplay();
 
     };
@@ -73,7 +74,7 @@ operators.forEach(sign => {
             numArray.splice(0, 2);
         };
         
-        numArray.push(displayNum);
+        numArray.push(parseFloat(displayNum));
         displayNum = 0; // resets display after operator button pressed
         numArray.push(sign.innerHTML);
         
@@ -102,15 +103,15 @@ function checkCounters(){
     };
 };
 
-let operationCounter = 0;
+let operationCounter = 0; // tracks when operate() is called
 
-numPad.forEach(num => {
+numPad.forEach(num => { // number control
     num.addEventListener("click", () => {
         hasDecimal();
         checkCounters();
         console.log("has decimal:", hasDecimal());
 
-        let number = parseFloat(num.innerHTML);
+        let number = num.innerHTML;
 
         if (hasDecimal()){
             displayNum = displayNum.toString() + num.innerHTML;
@@ -136,10 +137,11 @@ numPad.forEach(num => {
                 console.log("condition 3");
                     
             }else {
-                displayNum = displayNum * 10 + number;
+                displayNum = displayNum.toString() + number;
                 console.log("condition 4");
                 operationCounter = 0; // reset counter after condition 3 is false
             };
+            updateDisplay();
         };
         
         if (numArray.length !== 2){
@@ -147,7 +149,6 @@ numPad.forEach(num => {
         };
         console.log("array length:", numArray);
         console.log("current counter:", counter);
-        updateDisplay();
     });
 });
     
