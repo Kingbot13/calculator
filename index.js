@@ -1,3 +1,10 @@
+/* 
+    bugs to fix:
+        when starting number is zero and no number is pressed whacky things happen.
+        length of number needs to be restricted.
+*/
+
+
 const numPad = document.querySelectorAll(".num-btn");
 const display = document.querySelector(".display");
 const operators = document.querySelectorAll(".oper-btn");
@@ -103,6 +110,10 @@ function checkCounters(){
     };
 };
 
+function checkDisplayLength(){
+    
+}
+
 let operationCounter = 0; // tracks when operate() is called
 
 numPad.forEach(num => { // number control
@@ -173,11 +184,17 @@ function operate([...args]){
     
     function divide([...args]){
         let results;
-        args[1] === 0 ? alert("Tsk tsk tsk. You thought you were clever trying to divide by zero!")
-        :
-        results = args[0] / args[1];
-        displayNum = results;
-        return results;
+        if (args[1] === 0){
+            alert("Tsk tsk tsk. You thought you were clever trying to divide by zero!");
+            clear();
+
+        } else{
+            results = args[0] / args[1];
+            displayNum = results;
+            return results;
+
+        };
+        
     };
 
     switch (args[1]) {
