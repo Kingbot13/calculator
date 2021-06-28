@@ -25,17 +25,18 @@ signChange.addEventListener("click", () => {
 });
 
 function hasDecimal(){ // disables decimal if already exists in the display
-    if (displayNum - Math.floor(displayNum) !== 0){
+    if (parseFloat(display.innerHTML) - Math.floor(parseFloat(display.innerHTML)) !== 0){
         decimal.disabled = true;
     } else {
         decimal.disabled = false;
     };
+    return decimal.disabled;
 };
 
 decimal.addEventListener("click", () => { // decimal control... needs work
     hasDecimal();
     if (!hasDecimal()){
-        displayNum = displayNum + parseFloat(decimal.innerHTML);
+        displayNum = displayNum.toString() + decimal.innerHTML;
         updateDisplay();
 
     };
@@ -93,34 +94,28 @@ operators.forEach(sign => {
     });
 }); 
 
-/* 
-counter variable to count times operation function has been pressed
-if counter > 1
-display + num
-*/
-
 function checkCounters(){
-    // if (numArray === 2){
-    //     counter++;
-    // };
     if (counter === 0){
         return true;
     } else {
         return false;
     };
 };
-let operationCounter = 0;
 
+let operationCounter = 0;
 
 numPad.forEach(num => {
     num.addEventListener("click", () => {
         hasDecimal();
         checkCounters();
+        console.log("has decimal:", hasDecimal());
 
         let number = parseFloat(num.innerHTML);
 
         if (hasDecimal()){
-            displayNum += num;
+            displayNum = displayNum.toString() + num.innerHTML;
+            console.log("displayNum:", displayNum);
+            updateDisplay();
         } else {
 
             if (display.innerHTML === "0" || display.innerHTML === 0){
@@ -134,25 +129,18 @@ numPad.forEach(num => {
                 console.log("condition 2");
                 
             }else if(operationCounter === 1 && numArray.length === 2 && checkCounters()){ 
-                let a = 0;
                 
-                // if (Math.abs(a) < 10){
-                    a = a * 10 + number;
-                    displayNum = a;
+                displayNum = number;                
+                counter++;
+                console.log("counter", counter);
+                console.log("condition 3");
                     
-                    // };
-                    console.log("a:", a);
-                    counter++;
-                    // displayNum = number;
-                    console.log("counter", counter);
-                    console.log("condition 3");
-                    
-                }else {
-                    displayNum = displayNum * 10 + number;
-                    console.log("condition 4");
-                    operationCounter = 0; // reset counter after condition 3 is false
-                };
+            }else {
+                displayNum = displayNum * 10 + number;
+                console.log("condition 4");
+                operationCounter = 0; // reset counter after condition 3 is false
             };
+        };
         
         if (numArray.length !== 2){
             counter = 0;
@@ -165,7 +153,6 @@ numPad.forEach(num => {
     
 function operate([...args]){
     function add([...args]){
-        // console.log(args);
         let results = args[0] + args[1];
         displayNum = results;
         return results;
@@ -212,9 +199,7 @@ function operate([...args]){
         args.splice(1, 1);
         multiply(args);
         break;
-        // case "=":
-        //     args.splice(1, 1);
-        //     break;
+
         default:
             alert("Wrong input");
             break;
