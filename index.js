@@ -122,6 +122,7 @@ function checkDisplayLength(){ // check length of display
 
 let operationCounter = 0; // tracks when operate() is called
 
+
 numPad.forEach(num => { // number control
     num.addEventListener("click", () => {
         checkDisplayLength();
@@ -230,8 +231,22 @@ function operate([...args]){
             break;
         };
     operationCounter++
-    displayNum = Math.round(displayNum * 100000)/ 100000;
+    displayNum = Math.round(displayNum * 100000)/ 100000; // round all numbers to 5 decimal places
     updateDisplay();
     numArray.splice(0, 3);
     numArray.unshift(parseFloat(displayNum));
 };
+
+// Keyboard Support
+
+/* 
+    connect key with corresponding button
+
+*/
+
+window.addEventListener("keydown", (e) => {
+    const key = document.querySelector(`button[data-key="${e.key}"]`);
+    key.click();
+
+    console.log(e.key);
+});
