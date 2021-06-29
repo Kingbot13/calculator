@@ -245,10 +245,8 @@ function operate([...args]){
 */
 
 window.addEventListener("keydown", (e) => {
-    // const key = document.querySelector(`button[data-key="${e.code}"]`);
-    // key.click();
-
-    
+    const key = document.querySelector(`button[data-key="${e.key}"]`);
+    key.click();
 
     console.log(e.key);
 });
