@@ -235,3 +235,12 @@ function operate([...args]){
     numArray.splice(0, 3);
     numArray.unshift(parseFloat(displayNum));
 };
+
+// Keyboard Support
+
+window.addEventListener("keydown", (e) => {
+    switch (e.code){
+        case 96:
+            
+    }
+})
