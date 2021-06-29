@@ -230,7 +230,7 @@ function operate([...args]){
             break;
         };
     operationCounter++
-    displayNum = Math.round(displayNum * 100000)/ 100000;
+    displayNum = Math.round(displayNum * 100000)/ 100000; // round all numbers to 5 decimal places
     updateDisplay();
     numArray.splice(0, 3);
     numArray.unshift(parseFloat(displayNum));
