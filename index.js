@@ -1,7 +1,6 @@
 /* 
     bugs to fix:
-        when starting number is zero and no number is pressed whacky things happen.
-        length of number needs to be restricted.
+    
 */
 
 
@@ -26,13 +25,12 @@ percent.addEventListener("click", () => {
     updateDisplay();
 });
 
-signChange.addEventListener("click", () => {
+signChange.addEventListener("click", () => { // change positive number to negative and vice versa
     displayNum *= -1;
     updateDisplay();
 });
 
 function hasDecimal(){ // disables decimal if already exists in the display
-    // if (parseFloat(display.innerHTML) - Math.floor(parseFloat(display.innerHTML)) !== 0){
     if (display.innerHTML.indexOf(".") != -1){
         decimal.disabled = true;
     } else {
@@ -41,7 +39,7 @@ function hasDecimal(){ // disables decimal if already exists in the display
     return decimal.disabled;
 };
 
-decimal.addEventListener("click", () => { // decimal control... needs work
+decimal.addEventListener("click", () => { // decimal control
     hasDecimal();
     if (!hasDecimal()){
         displayNum = display.innerHTML + decimal.innerHTML;
@@ -200,7 +198,7 @@ function operate([...args]){
         } else{
             results = args[0] / args[1];
             displayNum = results;
-            return results;
+            return Math.round(results * 100000) / 100000;
 
         };
         
@@ -232,6 +230,7 @@ function operate([...args]){
             break;
         };
     operationCounter++
+    displayNum = Math.round(displayNum * 100000)/ 100000;
     updateDisplay();
     numArray.splice(0, 3);
     numArray.unshift(parseFloat(displayNum));
