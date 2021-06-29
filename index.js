@@ -110,14 +110,23 @@ function checkCounters(){
     };
 };
 
-function checkDisplayLength(){
-    
-}
+function checkDisplayLength(){ // check length of display
+    if (display.innerHTML.length === 12){
+        numPad.forEach(num => {
+            num.disabled = true;
+        });
+    } else {
+        numPad.forEach(num => {
+            num.disabled = false;
+        });
+    };  
+};
 
 let operationCounter = 0; // tracks when operate() is called
 
 numPad.forEach(num => { // number control
     num.addEventListener("click", () => {
+        checkDisplayLength();
         hasDecimal();
         checkCounters();
         console.log("has decimal:", hasDecimal());
