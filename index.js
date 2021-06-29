@@ -122,6 +122,7 @@ function checkDisplayLength(){ // check length of display
 
 let operationCounter = 0; // tracks when operate() is called
 
+
 numPad.forEach(num => { // number control
     num.addEventListener("click", () => {
         checkDisplayLength();
@@ -238,9 +239,16 @@ function operate([...args]){
 
 // Keyboard Support
 
+/* 
+    connect key with corresponding button
+
+*/
+
 window.addEventListener("keydown", (e) => {
-    switch (e.code){
-        case 96:
-            
-    }
-})
+    // const key = document.querySelector(`button[data-key="${e.code}"]`);
+    // key.click();
+
+    
+
+    console.log(e.key);
+});
