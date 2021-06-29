@@ -1,5 +1,5 @@
 /* 
-    bugs to fix:
+    add keyboard support
     
 */
 
