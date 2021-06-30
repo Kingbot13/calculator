@@ -1,9 +1,3 @@
-/* 
-    add keyboard support
-    
-*/
-
-
 const numPad = document.querySelectorAll(".num-btn");
 const display = document.querySelector(".display");
 const operators = document.querySelectorAll(".oper-btn");
@@ -128,13 +122,11 @@ numPad.forEach(num => { // number control
         checkDisplayLength();
         hasDecimal();
         checkCounters();
-        console.log("has decimal:", hasDecimal());
 
         let number = num.innerHTML;
 
         if (hasDecimal()){
             displayNum = displayNum.toString() + num.innerHTML;
-            console.log("displayNum:", displayNum);
             updateDisplay();
         } else {
 
@@ -238,11 +230,6 @@ function operate([...args]){
 };
 
 // Keyboard Support
-
-/* 
-    connect key with corresponding button
-
-*/
 
 window.addEventListener("keydown", (e) => {
     const key = document.querySelector(`button[data-key="${e.key}"]`);
